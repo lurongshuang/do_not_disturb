@@ -10,10 +10,9 @@ class MethodChannelDoNotDisturb extends DoNotDisturbPlatform {
   final methodChannel = const MethodChannel('do_not_disturb');
 
   @override
-  Future<bool> setStatus(bool value) async {
+  Future<void> setStatus(bool value) async {
     try {
       await methodChannel.invokeMethod('setStatus', value);
-      return await status;
     } on PlatformException catch (e) {
       if (kDebugMode) {
         print('Error setting Do Not Disturb: ${e.message}');

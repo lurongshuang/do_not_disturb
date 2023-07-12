@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:do_not_disturb/do_not_disturb.dart';
 import 'package:do_not_disturb/do_not_disturb_platform_interface.dart';
 import 'package:do_not_disturb/do_not_disturb_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -7,9 +6,21 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockDoNotDisturbPlatform
     with MockPlatformInterfaceMixin
     implements DoNotDisturbPlatform {
+  @override
+  Future<void> setStatus(bool value) {
+    // TODO: implement setStatus
+    throw UnimplementedError();
+  }
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  // TODO: implement status
+  Future<bool> get status => throw UnimplementedError();
+
+  @override
+  Stream<bool> statusStream() {
+    // TODO: implement statusStream
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -20,10 +31,7 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    DoNotDisturb doNotDisturbPlugin = DoNotDisturb();
     MockDoNotDisturbPlatform fakePlatform = MockDoNotDisturbPlatform();
     DoNotDisturbPlatform.instance = fakePlatform;
-
-    expect(await doNotDisturbPlugin.getPlatformVersion(), '42');
   });
 }
