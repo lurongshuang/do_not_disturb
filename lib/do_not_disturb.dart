@@ -10,7 +10,7 @@ class DoNotDisturb {
     return dnd.setStatus(enabled);
   }
 
-  Future<bool> get isEnabled async => await dnd.status;
+  Future<bool> get status async => await dnd.status;
 
   Stream<bool> get onEnabledStatusChanged {
     return dnd.onStatusChanged;
