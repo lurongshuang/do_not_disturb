@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() async {
     await _dnd.setStatus(true);
     status = await _dnd.status;
+
     setState(() {});
   }
 
