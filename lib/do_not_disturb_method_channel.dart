@@ -10,12 +10,6 @@ class MethodChannelDoNotDisturb extends DoNotDisturbPlatform {
   final methodChannel = const MethodChannel('do_not_disturb');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
-
   Future<bool> setStatus(bool value) async {
     try {
       await methodChannel.invokeMethod('setStatus', value);
@@ -40,12 +34,21 @@ class MethodChannelDoNotDisturb extends DoNotDisturbPlatform {
     }
   }
 
+  @override
   Future<bool> get status async => await _status();
 
-  Stream<bool> get onStatusChanged {
-    return methodChannel
-        .invokeMethod<bool>('status')
-        .asStream()
-        .asyncMap((event) => event as bool);
+  @override
+  Stream<bool> statusStream() {
+    try {
+      return methodChannel
+          .invokeMethod<bool>('status')
+          .asStream()
+          .asyncMap((event) => event as bool);
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print('Error getting Do Not Disturb status stream: ${e.message}');
+      }
+      rethrow;
+    }
   }
 }

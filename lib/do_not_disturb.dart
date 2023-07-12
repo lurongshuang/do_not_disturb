@@ -1,18 +1,11 @@
-import 'do_not_disturb_method_channel.dart';
+import 'do_not_disturb_platform_interface.dart';
 
 class DoNotDisturb {
-  final MethodChannelDoNotDisturb dnd = MethodChannelDoNotDisturb();
   Future<String?> getPlatformVersion() {
-    return dnd.getPlatformVersion();
+    return DoNotDisturbPlatform.instance.getPlatformVersion();
   }
 
-  Future<bool> setStatus(bool enabled) {
-    return dnd.setStatus(enabled);
-  }
-
-  Future<bool> get status async => await dnd.status;
-
-  Stream<bool> get onEnabledStatusChanged {
-    return dnd.onStatusChanged;
+  Future<bool> setEnabled(bool enabled) {
+    return DoNotDisturbPlatform.instance.setStatus(enabled);
   }
 }

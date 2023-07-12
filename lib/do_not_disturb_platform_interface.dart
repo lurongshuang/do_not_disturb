@@ -27,5 +27,14 @@ abstract class DoNotDisturbPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  
+//
+  Future<bool> setStatus(bool value) {
+    return _instance.setStatus(value);
+  }
+
+  Future<bool> get status async => await _instance.status;
+
+  Stream<bool> statusStream() {
+    return _instance.statusStream();
+  }
 }
