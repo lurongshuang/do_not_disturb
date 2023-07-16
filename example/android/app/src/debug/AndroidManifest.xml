@@ -4,4 +4,13 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+
+<!--    <service-->
+<!--        android:name=".DndNotificationListenerService"-->
+<!--        android:label="DND Notification Listener"-->
+<!--        android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">-->
+<!--        <intent-filter>-->
+<!--            <action android:name="android.service.notification.NotificationListenerService" />-->
+<!--        </intent-filter>-->
+<!--    </service>-->
 </manifest>
