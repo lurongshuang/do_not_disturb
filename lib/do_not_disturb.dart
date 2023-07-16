@@ -17,6 +17,10 @@ class DoNotDisturb {
       DoNotDisturbPlatform.instance.statusStream();
 
   Future<bool> _requestNotificationPolicyAccess() async {
+    final isGranted = await Permission.accessNotificationPolicy.isGranted;
+    if (!isGranted) {
+      return await _requestNotificationPolicyAccess();
+    }
     final status = await Permission.accessNotificationPolicy.request();
     if (status.isDenied || status.isPermanentlyDenied) {
       return false;
