@@ -19,12 +19,13 @@ class DoNotDisturb {
   Future<bool> _requestNotificationPolicyAccess() async {
     final isGranted = await Permission.accessNotificationPolicy.isGranted;
     if (!isGranted) {
-      return await _requestNotificationPolicyAccess();
+      final PermissionStatus status =
+          await Permission.accessNotificationPolicy.request();
+      if (status.isDenied || status.isPermanentlyDenied) {
+        return false;
+      }
     }
-    final status = await Permission.accessNotificationPolicy.request();
-    if (status.isDenied || status.isPermanentlyDenied) {
-      return false;
-    }
+
     return true;
   }
 }
