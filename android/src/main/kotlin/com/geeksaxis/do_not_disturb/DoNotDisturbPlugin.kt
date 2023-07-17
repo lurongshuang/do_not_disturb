@@ -68,12 +68,25 @@ class DoNotDisturbPlugin : FlutterPlugin, MethodCallHandler {
                 getCurrentInterruptionFilter()
                 result.success(null)
             }
+            "enableDndNotificationListener" -> {
+                enableDndNotificationListener()
+                result.success(null)
+            }
+            "openDoNotDisturbSettings" -> {
+                openDoNotDisturbSettings()
+                result.success(null)
+            }
             else -> {
                 result.notImplemented()
             }
         }
     }
-
+@RequiresApi(Build.VERSION_CODES.M)
+private  fun openDoNotDisturbSettings() {
+    val intent = Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    applicationContext.startActivity(intent)
+}
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setDoNotDisturbEnabled(enabled: Boolean) {
         val filter = if (enabled) INTERRUPTION_FILTER_NONE else NotificationManager.INTERRUPTION_FILTER_ALL

@@ -16,8 +16,11 @@ class DoNotDisturb {
   Stream<bool> get statusAsStream =>
       DoNotDisturbPlatform.instance.statusStream();
 
+  Future<bool> get isPermissionGranted async =>
+      await Permission.accessNotificationPolicy.isGranted;
+
   Future<bool> _requestNotificationPolicyAccess() async {
-    final isGranted = await Permission.accessNotificationPolicy.isGranted;
+    final isGranted = await isPermissionGranted;
     if (!isGranted) {
       final PermissionStatus status =
           await Permission.accessNotificationPolicy.request();
@@ -27,5 +30,13 @@ class DoNotDisturb {
     }
 
     return true;
+  }
+
+  openDoNotDisturbSettings() async {
+    await DoNotDisturbPlatform.instance.openDoNotDisturbSettings();
+  }
+
+  Future<void> dispose() async {
+    await DoNotDisturbPlatform.instance.dispose();
   }
 }

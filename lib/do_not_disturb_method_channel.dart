@@ -9,6 +9,10 @@ class MethodChannelDoNotDisturb extends DoNotDisturbPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('do_not_disturb');
 
+  MethodChannelDoNotDisturb() {
+    _inint();
+  }
+
   @override
   Future<void> setStatus(bool value) async {
     try {
@@ -50,5 +54,33 @@ class MethodChannelDoNotDisturb extends DoNotDisturbPlatform {
       }
       rethrow;
     }
+  }
+
+  @override
+  openDoNotDisturbSettings() async {
+    try {
+      await methodChannel.invokeMethod('openDoNotDisturbSettings');
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print('Error opening Do Not Disturb settings: ${e.message}');
+      }
+      rethrow;
+    }
+  }
+
+  _inint() async {
+    try {
+      await methodChannel.invokeMethod('enableDndNotificationListener');
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print('Error enabling listiner: ${e.message}');
+      }
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _eventChannel.receiveBroadcastStream().drain();
   }
 }

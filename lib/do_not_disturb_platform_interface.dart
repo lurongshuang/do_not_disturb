@@ -32,4 +32,12 @@ abstract class DoNotDisturbPlatform extends PlatformInterface {
   Stream<bool> statusStream() {
     return _instance.statusStream();
   }
+
+  openDoNotDisturbSettings() async {
+    await _instance.openDoNotDisturbSettings();
+  }
+
+  Future<void> dispose() async {
+    await _instance.dispose();
+  }
 }
