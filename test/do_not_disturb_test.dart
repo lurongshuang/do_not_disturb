@@ -21,6 +21,18 @@ class MockDoNotDisturbPlatform
     // TODO: implement statusStream
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> dispose() {
+    // TODO: implement dispose
+    throw UnimplementedError();
+  }
+
+  @override
+  openDoNotDisturbSettings() {
+    // TODO: implement openDoNotDisturbSettings
+    throw UnimplementedError();
+  }
 }
 
 void main() {
