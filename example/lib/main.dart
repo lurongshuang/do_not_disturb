@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final DoNotDisturb _dnd = DoNotDisturb();
+  final DoNotDisturb _doNotDisturb = DoNotDisturb();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: StreamBuilder<bool>(
-        stream: _dnd.statusAsStream,
+        stream: _doNotDisturb.statusAsStream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text(
@@ -74,13 +74,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 Switch(
                   value: value,
                   onChanged: (value) async {
-                    await _dnd.setStatus(value);
+                    await _doNotDisturb.setStatus(value);
                     setState(() {});
                   },
                 ),
                 const SizedBox(height: 20),
                 StreamBuilder<bool>(
-                    stream: _dnd.isPermissionGranted.asStream(),
+                    stream: _doNotDisturb.isPermissionGranted.asStream(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return Text(
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           const SizedBox(width: 10),
                           IconButton(
                             onPressed: () async {
-                              await _dnd.openDoNotDisturbSettings();
+                              await _doNotDisturb.openDoNotDisturbSettings();
                             },
                             icon: const Icon(Icons.settings),
                           ),
@@ -119,7 +119,9 @@ class _MyHomePageState extends State<MyHomePage> {
       //test openDoNotDisturbSettings
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          setState(() {});
+          setState(
+            () async {},
+          );
         },
         tooltip: 'Refresh',
         child: const Icon(Icons.refresh),
