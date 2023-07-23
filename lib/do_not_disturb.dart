@@ -3,12 +3,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'do_not_disturb_platform_interface.dart';
 
 class DoNotDisturb {
-  Future<void> setStatus(bool enabled) async {
-    final status = await _requestNotificationPolicyAccess();
-    if (!status) {
-      throw Exception('Notification Policy Access Denied');
-    }
-    await DoNotDisturbPlatform.instance.setStatus(enabled);
+  Future<void> setStatus(bool value) async {
+    await DoNotDisturbPlatform.instance.setStatus(value);
   }
 
   Future<bool> get status async => await DoNotDisturbPlatform.instance.status;
@@ -19,7 +15,7 @@ class DoNotDisturb {
   Future<bool> get isPermissionGranted async =>
       await Permission.accessNotificationPolicy.isGranted;
 
-  Future<bool> _requestNotificationPolicyAccess() async {
+  Future<bool> requestNotificationPolicyAccess() async {
     final isGranted = await isPermissionGranted;
     if (!isGranted) {
       final PermissionStatus status =
